@@ -10,10 +10,10 @@ to meneame.
 
 == Description ==
 
-This plugin adds comments from your posts sent to "[MenÈame](http://meneame.net/)" to
+This plugin adds comments from your posts sent to "[Men√©ame](http://meneame.net/)" to
 your blog's comments list automatically.
 
-The system detects trackbacks from "MenÈame" and starts a 7-day task that downloads 
+The system detects trackbacks from "Men√©ame" and starts a 7-day task that downloads 
 the new comments, every 30 minutes, adding them to your blog.
 
 See the [Meneame Comments to WP page](http://blogestudio.com/plugins/meneame-comments/) for further information.
@@ -24,7 +24,7 @@ See the [Meneame Comments to WP page](http://blogestudio.com/plugins/meneame-com
 
 2. Activate the plugin, if you've installed it in the "mu-plugins" it's not necessary.
 
-3. Now go to Settings->MenÈame Comments to WP and click "MenÈame Comments First Load". 
+3. Now go to Settings->Men√©ame Comments to WP and click "Men√©ame Comments First Load". 
 This will download all the comments of every post sent to meneame and it will activate
 a system to check for new comments in meneame for posts sent less than 7 days ago.
 
@@ -35,7 +35,7 @@ a system to check for new comments in meneame for posts sent less than 7 days ag
 By default your posts comments and meneame comments will be mixed in your comments template.
 If you want to have them seperately follow these instructions:
 
-= How can I list only comments of "MenÈame"? =
+= How can I list only comments of "Men√©ame"? =
 
 We have included a function that returns the list of the comments, called "meneame_comments__only_meneame."
 
@@ -54,5 +54,5 @@ Plugin updates will be posted here [Blogestudio](http://blogestudio.com/plugins/
 == Thanks ==
 
 We would sincerely like to thank [Enrique Dans](http://www.enriquedans.com/) for giving us the idea, 
-[Ricardo Galli](http://ricardogalli.com/) for helping us with MenÈame, and last but not least ;-)
+[Ricardo Galli](http://ricardogalli.com/) for helping us with Men√©ame, and last but not least ;-)
 all the betatesters who helped us http://blogestudio.com/2008/09/22/plugin-wordpress-comentarios-de-meneame-en-wordpress/
