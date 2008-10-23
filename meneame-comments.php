@@ -5,7 +5,7 @@ Plugin URI: http://blogestudio.com/plugins/meneame-comments/
 Description: Automatic system to obtain the comments of your entries in Meneame
 Author: Alejandro Carravedo (Blogestudio)
 Author URI: http://blogestudio.com/
-Version: 0.0.8
+Version: 0.0.9
 Date: 2008-09-18 09:35
 */
 
