@@ -1,6 +1,6 @@
 === Meneame Comments to WP ===
 Contributors: blogestudio
-Tags: comments meneame rss
+Tags: comments, meneame, rss
 Tested up to: 2.6.2
 Stable tag: 0.0.9
 Requires at least: 2.5.1
