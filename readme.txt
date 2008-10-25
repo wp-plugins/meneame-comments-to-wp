@@ -2,7 +2,7 @@
 Contributors: blogestudio
 Tags: comments, meneame, rss
 Tested up to: 2.6.2
-Stable tag: 0.0.10
+Stable tag: 0.0.11
 Requires at least: 2.5.1
 
 You can now import meneame user comments from your blog's posts that have been sent
@@ -39,13 +39,13 @@ If you want to have them seperately follow these instructions:
 
 We have included a function that returns the list of the comments, called "meneame_comments__only_meneame."
 
-*   meneame_comments__only_meneame(`post_id=[ID]`);
+*   `meneame_comments__only_meneame("post_id=[ID]");`
 
 = How can I list comments without including the meneame comments? =
 
 We have included a function that returns the list of the comments, called "meneame_comments__without_meneame."
 
-*   meneame_comments__without_meneame(`post_id=[ID]&comments=[0|(1)]&trackbacks=[0|(1)]`);
+*   `meneame_comments__without_meneame("post_id=[ID]&comments=[0|(1)]&trackbacks=[0|(1)]");`
 
 == Updates ==
 
