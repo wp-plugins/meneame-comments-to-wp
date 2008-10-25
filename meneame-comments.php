@@ -5,8 +5,8 @@ Plugin URI: http://blogestudio.com/plugins/meneame-comments/
 Description: Automatic system to obtain the comments of your entries in Meneame
 Author: Alejandro Carravedo (Blogestudio)
 Author URI: http://blogestudio.com/
-Version: 0.0.10
-Date: 2008-09-18 09:35
+Version: 0.0.11
+Date: 2008-10-25 19:00:00
 */
 
 // Pre-2.6 compatibility
@@ -144,11 +144,11 @@ function meneame_comments__posts_trackbacked( $post_id = '' ) {
 		WHERE comment_author_url LIKE 'http://meneame.net/story/%'
 			". ( ( $post_id != '' ) ? ' AND comment_post_ID = '.$post_id.' ' : '' ) ."
 			". ( ( $lastupdate > 0 ) ? " AND comment_date >= '". date('Y-m-d H:i:s', ($lastupdate - meneame_comments__refresh_seconds()) )."'" : "" ) ."
-			AND ( comment_type = 'trackback' OR comment_type = 'pingback' )
+			AND ( comment_type = 'trackback' )
 			AND comment_approved = '1'
 		ORDER BY comment_post_id DESC
 	", ARRAY_A);
-}
+} //  OR comment_type = 'pingback'
 
 
 /* Function to get especific trackback, checking "meneame.net" host */
@@ -157,6 +157,11 @@ function meneame_comments__check_trackback( $tb_id ) {
 	// Get info from trackback
 	if ( is_array($tb_id) ) $commentdata = $tb_id;
 	else $commentdata = get_commentdata( $tb_id, 1, true );
+	
+	// Solo se gestionan los tracbacks, no los pingbacks, si lo haces
+	// te bajas los comentarios de otras entradas meneadas
+	if ( $commentdata['comment_type'] != 'trackback' )
+		return false;
 	
 	$parsedCommentAuthorURL = parse_url($commentdata['comment_author_url']);
 	
@@ -419,26 +424,27 @@ function meneame_comments__trackback_post( $tb_id ) {
 	if ( is_array($tb_id) ) $commentdata = $tb_id;
 	else $commentdata = get_commentdata( $tb_id, 1, true );
 	
-	$parsedCommentAuthorURL = parse_url($commentdata['comment_author_url']);
-	
-	if ( $parsedCommentAuthorURL['host'] == 'meneame.net' ) {
+	if ( $commendata->comment_type == 'trackback' ) {
+		$parsedCommentAuthorURL = parse_url($commentdata['comment_author_url']);
 		
-		// Cogemos los tiempos de actualizacion de cada POST
-		$single_cron = meneame_comments__get_option('single_cron');
-		if ( !$single_cron ) $single_cron = array();
-		
-		$single_cron[$commentdata['comment_post_ID']] = time() + (30 * 60);
-		meneame_comments__set_option('single_cron', $single_cron);
-		
-		
-		// Cogemos los tiempos de la ULTIMA ACTUALIZACION de cada POST
-		$single_cron_lastupdate = meneame_comments__get_option('single_cron_lastupdate');
-		if ( !$single_cron_lastupdate ) $single_cron_lastupdate = array();
-		
-		$single_cron_lastupdate[$commentdata['comment_post_ID']] = time() + meneame_comments__refresh_seconds();
-		meneame_comments__set_option('single_cron_lastupdate', $single_cron_lastupdate);
+		if ( $parsedCommentAuthorURL['host'] == 'meneame.net' ) {
+			
+			// Cogemos los tiempos de actualizacion de cada POST
+			$single_cron = meneame_comments__get_option('single_cron');
+			if ( !$single_cron ) $single_cron = array();
+			
+			$single_cron[$commentdata['comment_post_ID']] = time() + (30 * 60);
+			meneame_comments__set_option('single_cron', $single_cron);
+			
+			
+			// Cogemos los tiempos de la ULTIMA ACTUALIZACION de cada POST
+			$single_cron_lastupdate = meneame_comments__get_option('single_cron_lastupdate');
+			if ( !$single_cron_lastupdate ) $single_cron_lastupdate = array();
+			
+			$single_cron_lastupdate[$commentdata['comment_post_ID']] = time() + meneame_comments__refresh_seconds();
+			meneame_comments__set_option('single_cron_lastupdate', $single_cron_lastupdate);
+		}
 	}
-	
 }
 
 add_action('trackback_post', 'meneame_comments__trackback_post');
@@ -502,6 +508,7 @@ function meneame_comments__without_meneame( $args = '' ) {
 		'post_id' => '',
 		'comments' => 1,
 		'trackbacks' => 1,
+		'pinbacks' => 1,
 	);
 	
 	// Parseamos los argumentos
@@ -515,6 +522,7 @@ function meneame_comments__without_meneame( $args = '' ) {
 	$sqlTypes = array();;
 	if ( $args['comments'] ) $sqlTypes[] = ' comment_type = "" ';
 	if ( $args['trackbacks'] ) $sqlTypes[] = ' comment_type = "trackback" ';
+	if ( $args['pinbacks'] ) $sqlTypes[] = ' comment_type = "pingback" ';
 	
 	$without_meneame = $wpdb->get_results("
 		SELECT *

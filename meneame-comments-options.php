@@ -207,8 +207,5 @@ if ( !empty($text) ) {
 			<input class="button-secondary" type="submit" name="do" value="<?php echo attribute_escape(__('Delete Meneame Comments', 'beplugin')); ?>" onclick="return confirm('<?php _e('Are you sure you want to delete all Meneame Comments', 'beplugin'); ?>');" />
 		</p>
 		
-		
-		
-		<?php //echo '<hr />'; meneame_comments__check_trackback(21); echo '<hr />'; ?>
 	</div>
 </form>
