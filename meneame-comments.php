@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: Meneame Comments
+Plugin Name: Meneame Comments to WP
 Plugin URI: http://blogestudio.com/plugins/meneame-comments/
 Description: Automatic system to obtain the comments of your entries in Meneame
 Author: Alejandro Carravedo (Blogestudio)
 Author URI: http://blogestudio.com/
-Version: 0.0.11
+Version: 0.0.12
 Date: 2008-10-25 19:00:00
 */
 
@@ -31,25 +31,6 @@ require_once( 'meneame-comments-cronfooter.php' );
 
 $meneame_comments__defaults = meneame_comments__get_vardefault('defaults');
 $meneame_comments__check_cache2 = meneame_comments__get_vardefault('check_cache2');
-
-
-/* Function to INIT Plugin */
-function meneame_comments__register_activation_hook() {
-	
-	// Get defaults
-	$meneame_comments__defaults = meneame_comments__get_vardefault('defaults');
-	// Recover options from DB
-	$options_db = get_option('meneame_comments');
-	// Merge default with DB, preference from DB
-	$meneame_comments__defaults = array_merge($meneame_comments__defaults, $options_db);
-	
-	// Update options
-	update_option('meneame_comments', $meneame_comments__defaults);
-	delete_option('meneame_comments__check_cache');
-	update_option('meneame_comments__check_cache2', meneame_comments__get_vardefault('check_cache2'));
-	
-}
-register_activation_hook( __FILE__, 'meneame_comments__register_activation_hook' );
 
 
 function meneame_comments__get_vardefault( $varName = '' ) {
@@ -86,6 +67,25 @@ function meneame_comments__get_vardefault( $varName = '' ) {
 	
 	return $varValue;
 }
+
+
+/* Function to INIT Plugin */
+function meneame_comments__register_activation_hook() {
+	
+	// Get defaults
+	$meneame_comments__defaults = meneame_comments__get_vardefault('defaults');
+	// Recover options from DB
+	$options_db = get_option('meneame_comments');
+	// Merge default with DB, if existsm preference from DB
+	if ( $options_db ) $meneame_comments__defaults = array_merge($meneame_comments__defaults, $options_db);
+	
+	// Update options
+	update_option('meneame_comments', $meneame_comments__defaults);
+	delete_option('meneame_comments__check_cache');
+	update_option('meneame_comments__check_cache2', meneame_comments__get_vardefault('check_cache2'));
+	
+}
+register_activation_hook( __FILE__, 'meneame_comments__register_activation_hook' );
 
 
 /* Get Values from Array Options DB */
@@ -424,9 +424,9 @@ function meneame_comments__trackback_post( $tb_id ) {
 	if ( is_array($tb_id) ) $commentdata = $tb_id;
 	else $commentdata = get_commentdata( $tb_id, 1, true );
 	
-	if ( $commendata->comment_type == 'trackback' ) {
-		$parsedCommentAuthorURL = parse_url($commentdata['comment_author_url']);
+	if ( $commentdata['comment_type'] == 'trackback' ) {
 		
+		$parsedCommentAuthorURL = parse_url($commentdata['comment_author_url']);
 		if ( $parsedCommentAuthorURL['host'] == 'meneame.net' ) {
 			
 			// Cogemos los tiempos de actualizacion de cada POST
@@ -436,15 +436,16 @@ function meneame_comments__trackback_post( $tb_id ) {
 			$single_cron[$commentdata['comment_post_ID']] = time() + (30 * 60);
 			meneame_comments__set_option('single_cron', $single_cron);
 			
-			
 			// Cogemos los tiempos de la ULTIMA ACTUALIZACION de cada POST
 			$single_cron_lastupdate = meneame_comments__get_option('single_cron_lastupdate');
 			if ( !$single_cron_lastupdate ) $single_cron_lastupdate = array();
 			
 			$single_cron_lastupdate[$commentdata['comment_post_ID']] = time() + meneame_comments__refresh_seconds();
 			meneame_comments__set_option('single_cron_lastupdate', $single_cron_lastupdate);
+			
 		}
 	}
+	
 }
 
 add_action('trackback_post', 'meneame_comments__trackback_post');
