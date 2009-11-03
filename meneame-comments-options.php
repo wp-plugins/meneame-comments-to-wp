@@ -154,8 +154,6 @@ if ( !empty($text) ) {
 						echo '</td>';
 					echo '</tr>';
 					
-					
-					
 				}
 			?>
 		</table>
