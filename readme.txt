@@ -2,7 +2,7 @@
 Contributors: blogestudio
 Tags: comments, meneame, rss
 Tested up to: 2.8.5
-Stable tag: 0.0.15
+Stable tag: 0.0.16
 Requires at least: 2.5.1
 
 You can now import meneame user comments from your blog's posts that have been sent
