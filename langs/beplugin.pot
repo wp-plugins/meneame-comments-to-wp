@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: BE Plugin\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-20 12:21+0100\n"
-"PO-Revision-Date: 2008-10-20 12:23+0100\n"
+"POT-Creation-Date: 2009-11-09 16:54+0100\n"
+"PO-Revision-Date: 2009-11-09 16:54+0100\n"
 "Last-Translator: Alejandro Carravedo <acarravedo@blogestudio.com>\n"
 "Language-Team: Blogestudio <info@blogestudio.com>\n"
 "MIME-Version: 1.0\n"
@@ -27,14 +27,8 @@ msgstr ""
 msgid "Comments updated"
 msgstr ""
 
-#: meneame-comments.php:126
-#: meneame-comments.php:127
-#: meneame-comments-options.php:93
-msgid "Men&eacute;ame Comments to WP"
-msgstr ""
-
 #: meneame-comments-options.php:18
-#: meneame-comments-options.php:199
+#: meneame-comments-options.php:197
 msgid "Update Options"
 msgstr ""
 
@@ -73,8 +67,14 @@ msgid "Update Comments"
 msgstr ""
 
 #: meneame-comments-options.php:65
-#: meneame-comments-options.php:207
+#: meneame-comments-options.php:205
 msgid "Delete Meneame Comments"
+msgstr ""
+
+#: meneame-comments-options.php:93
+#: meneame-comments.php:126
+#: meneame-comments.php:127
+msgid "Men&eacute;ame Comments to WP"
 msgstr ""
 
 #: meneame-comments-options.php:96
@@ -114,59 +114,64 @@ msgstr ""
 msgid "Server Time"
 msgstr ""
 
-#: meneame-comments-options.php:163
+#: meneame-comments-options.php:161
 msgid "New Comments Options"
 msgstr ""
 
-#: meneame-comments-options.php:167
+#: meneame-comments-options.php:165
 msgid "Status"
 msgstr ""
 
-#: meneame-comments-options.php:169
+#: meneame-comments-options.php:167
 msgid "Equal to Trackback"
 msgstr ""
 
-#: meneame-comments-options.php:170
+#: meneame-comments-options.php:168
 msgid "Approve"
 msgstr ""
 
-#: meneame-comments-options.php:171
+#: meneame-comments-options.php:169
 msgid "Moderate"
 msgstr ""
 
-#: meneame-comments-options.php:172
+#: meneame-comments-options.php:170
 msgid "Spam"
 msgstr ""
 
-#: meneame-comments-options.php:177
+#: meneame-comments-options.php:175
 msgid "Men&eacute;ame Configuration"
 msgstr ""
 
-#: meneame-comments-options.php:181
+#: meneame-comments-options.php:179
 msgid "Comments Feed URL"
 msgstr ""
 
-#: meneame-comments-options.php:185
+#: meneame-comments-options.php:183
 msgid "URL ID Parameter"
 msgstr ""
 
-#: meneame-comments-options.php:189
+#: meneame-comments-options.php:187
 msgid "URL Karma Parameter"
 msgstr ""
 
-#: meneame-comments-options.php:193
+#: meneame-comments-options.php:191
 msgid "Minimal Karma"
 msgstr ""
 
-#: meneame-comments-options.php:199
+#: meneame-comments-options.php:197
 msgid "Cancel"
 msgstr ""
 
-#: meneame-comments-options.php:204
+#: meneame-comments-options.php:202
 msgid "Management"
 msgstr ""
 
-#: meneame-comments-options.php:207
+#: meneame-comments-options.php:205
 msgid "Are you sure you want to delete all Meneame Comments"
+msgstr ""
+
+#: meneame-comments.php:196
+#, php-format
+msgid "Post %s: Error loading from Meneame"
 msgstr ""
 

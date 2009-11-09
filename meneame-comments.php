@@ -177,7 +177,26 @@ function meneame_comments__check_trackback( $tb_id ) {
 function meneame_comments__parseNEWS( $url, $post_id = 0, $approved = '' ) {
 	global $meneame_comments__defaults;
 	
-	$htmlCode = file_get_contents($url);
+	// Probe standar system from PHP to load Meneame content ...
+	$readOK = false;
+	if ( $htmlCode = file_get_contents($url) ) {
+		$readOK = true;
+	}else{
+		// ... not correct ... probe WordPress system.
+		require_once(ABSPATH . WPINC . '/rss.php');
+		$htmlObj = _fetch_remote_file($url);
+		if ( $htmlObj ) {
+			$readOK = true;
+			$htmlCode = $htmlObj->results;
+		}
+	}
+	
+	// If not run, alert user
+	if ( !$readOK ) {
+		echo 'alert("'. sprintf(__('Post %s: Error loading from Meneame', 'beplugin'), $post_id) .'");';
+		return false;
+	}
+	
 	
 	// Search Patterns
 	$tag_pattern = '/<link.*?>/i';
