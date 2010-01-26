@@ -1,6 +1,4 @@
 <?php
-
-
 function meneame_comments__wp_footer() {
 	global $posts, $meneamec_url;
 	
@@ -16,4 +14,3 @@ function meneame_comments__wp_footer() {
 }
 add_action('wp_footer', 'meneame_comments__wp_footer');
 
-?>

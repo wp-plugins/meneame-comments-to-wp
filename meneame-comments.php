@@ -5,7 +5,7 @@ Plugin URI: http://blogestudio.com/plugins/meneame-comments/
 Description: Automatic system to obtain the comments of your entries in Meneame
 Author: Alejandro Carravedo (Blogestudio)
 Author URI: http://blogestudio.com/
-Version: 0.0.17
+Version: 0.0.18
 Date: 2008-10-25 19:00:00
 */
 
@@ -141,7 +141,8 @@ function meneame_comments__posts_trackbacked( $post_id = '' ) {
 	return $wpdb->get_results("
 		SELECT *
 		FROM $wpdb->comments
-		WHERE comment_author_url LIKE 'http://meneame.net/story/%'
+		WHERE 1 = 1
+			AND ( comment_author_url LIKE 'http://meneame.net/story/%' OR comment_author_url LIKE 'http://www.meneame.net/story/%' )
 			". ( ( $post_id != '' ) ? ' AND comment_post_ID = '.$post_id.' ' : '' ) ."
 			". ( ( $lastupdate > 0 ) ? " AND comment_date >= '". date('Y-m-d H:i:s', ($lastupdate - meneame_comments__refresh_seconds()) )."'" : "" ) ."
 			AND ( comment_type = 'trackback' OR comment_type = 'pingback' )
@@ -165,7 +166,7 @@ function meneame_comments__check_trackback( $tb_id ) {
 	
 	$parsedCommentAuthorURL = parse_url($commentdata['comment_author_url']);
 	
-	if ( $parsedCommentAuthorURL['host'] == 'meneame.net' ) {
+	if ( in_array($parsedCommentAuthorURL['host'], array('meneame.net', 'www.meneame.net')) ) {
 		return meneame_comments__parseNEWS( $commentdata['comment_author_url'], $commentdata['comment_post_ID'], $commentdata['comment_approved'] ); //$commentdata['comment_author_url']);
 	}
 	
@@ -443,7 +444,7 @@ function meneame_comments__trackback_post( $tb_id ) {
 	if ( $commentdata['comment_type'] == 'trackback' OR $commentdata['comment_type'] == 'pingback' ) {
 		
 		$parsedCommentAuthorURL = parse_url($commentdata['comment_author_url']);
-		if ( $parsedCommentAuthorURL['host'] == 'meneame.net' ) {
+		if ( in_array($parsedCommentAuthorURL['host'], array('meneame.net', 'www.meneame.net')) ) {
 			
 			// Cogemos los tiempos de actualizacion de cada POST
 			$single_cron = meneame_comments__get_option('single_cron');

@@ -263,4 +263,4 @@ function meneame_comments__ajax__updatecomments($results_div_id = '', $doReturn 
 	}
 }
 add_action('wp_ajax_meneame_comments__ajax__updatecomments', 'meneame_comments__ajax__updatecomments' );
-?>
+

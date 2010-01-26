@@ -1,6 +1,4 @@
 <?php
-
-
 ### Variables Variables Variables
 $pluginPageOptions = 'admin.php?page='.$pluginPath;
 
