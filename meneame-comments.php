@@ -38,7 +38,7 @@ function meneame_comments__get_vardefault( $varName = '' ) {
 	switch($varName) {
 		case "defaults":
 			$varValue = array(
-				'rss_url' => 'http://meneame.net/comments_rss2.php',
+				'rss_url' => 'http://www.meneame.net/comments_rss2.php',
 				'rss_param_id' => 'id',
 				'rss_param_karma' => 'min_karma',
 				'rss_min_karma' => 0,
@@ -176,7 +176,6 @@ function meneame_comments__check_trackback( $tb_id ) {
 
 /* Parse HTML from trackback URL */
 function meneame_comments__parseNEWS( $url, $post_id = 0, $approved = '' ) {
-	global $meneame_comments__defaults;
 	
 	// Probe standar system from PHP to load Meneame content ...
 	$readOK = false;
@@ -223,21 +222,21 @@ function meneame_comments__parseNEWS( $url, $post_id = 0, $approved = '' ) {
 							if ( preg_match( sprintf($reAttribute, 'href'), $linkTag, $hrefAtt, PREG_OFFSET_CAPTURE) ) {
 								// If HREF Attribute contains "Meneame Comments RSS URL"
 								$hrefAttValue = reset(end($hrefAtt));
-								if ( strpos( $hrefAttValue, $meneame_comments__defaults['rss_url'] ) !== false ) {
+								if ( strpos( $hrefAttValue, meneame_comments__get_option('rss_url') ) !== false ) {
 									// Parse URL
 									$parsedURL = parse_url($hrefAttValue);
 									// Parse QUery
 									parse_str($parsedURL['query'], $parsedQuery);
 									
 									// If exists ID as parameter
-									if ( $parsedQuery[$meneame_comments__defaults['rss_param_id']] != '' ) {
+									if ( $parsedQuery[meneame_comments__get_option('rss_param_id')] != '' ) {
 										
 										// Mount Meneame Comments URL with ID and KARMA
-										$rssURL = $meneame_comments__defaults['rss_url'];
+										$rssURL = meneame_comments__get_option('rss_url');
 											$rssURL .= '?';
-											$rssURL .= $meneame_comments__defaults['rss_param_id'].'='.$parsedQuery[$meneame_comments__defaults['rss_param_id']];
+											$rssURL .= meneame_comments__get_option('rss_param_id').'='.$parsedQuery[meneame_comments__get_option('rss_param_id')];
 											$rssURL .= '&';
-											$rssURL .= $meneame_comments__defaults['rss_param_karma'].'='.$meneame_comments__defaults['rss_min_karma'];
+											$rssURL .= meneame_comments__get_option('rss_param_karma').'='.meneame_comments__get_option('rss_min_karma');
 										
 										// Load RSS
 										return meneame_comments__getRSS($rssURL, $post_id, $approved);
@@ -257,7 +256,7 @@ function meneame_comments__parseNEWS( $url, $post_id = 0, $approved = '' ) {
 
 /* Download RSS Comments from Meneame */
 function meneame_comments__getRSS( $url, $post_id, $approved = '' ) {
-	global $meneame_comments__defaults, $post;
+	global $post;
 	
 	$post_id = ( $post ) ? $post->ID : $post_id;
 	
