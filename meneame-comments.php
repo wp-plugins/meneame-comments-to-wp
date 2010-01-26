@@ -5,7 +5,7 @@ Plugin URI: http://blogestudio.com/plugins/meneame-comments/
 Description: Automatic system to obtain the comments of your entries in Meneame
 Author: Alejandro Carravedo (Blogestudio)
 Author URI: http://blogestudio.com/
-Version: 0.0.18
+Version: 0.0.19
 Date: 2008-10-25 19:00:00
 */
 
@@ -94,6 +94,11 @@ function meneame_comments__get_option( $name ) {
 	$meneame_comments = get_option('meneame_comments');
 	
 	if ( isset($meneame_comments[$name]) ) {
+		
+		/* Patch ( < 0.0.19 ) */
+		if ( $name == 'rss_url' AND $meneame_comments[$name] == 'http://meneame.net/comments_rss2.php' )
+			$meneame_comments[$name] = 'http://www.meneame.net/comments_rss2.php';
+		
 		return $meneame_comments[$name];
 	}else{
 		return false;

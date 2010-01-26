@@ -2,7 +2,7 @@
 Contributors: blogestudio
 Tags: comments, meneame, rss
 Tested up to: 2.9.1
-Stable tag: 0.0.18
+Stable tag: 0.0.19
 Requires at least: 2.5.1
 
 You can now import meneame user comments from your blog's posts that have been sent to meneame.
@@ -51,10 +51,16 @@ We would sincerely like to thank [Enrique Dans](http://www.enriquedans.com/) for
 
 == Changelog ==
 
+= 0.0.19 =
+* Change "default" URL to comments RSS. (Added WWW)
+
 = 0.0.18 =
 * Added "www.meneame.net" as valid host. (Now check "meneame.net" and "www.meneame.net")
 
 == Upgrade Notice ==
+
+= 0.0.19 =
+All users need update.
 
 = 0.0.18 =
 All users need update.
